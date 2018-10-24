@@ -186,7 +186,7 @@ Makes the **Agent** with the **given** **agentId** complete **all** his
 
 ##### Status Command
 
-**Parameters** -- **id** (string)
+**Parameters** -- **id** (string) 
 
 Brings report of the **Agent** or the **Mission** with the **given id**,
 providing **detailed** **information** about the corresponding object.
