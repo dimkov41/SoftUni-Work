@@ -54,4 +54,4 @@ Constraints
 
 <!-- -->
 
--   Allowed working **time** / **memory**: **100ms** / **16MB**.
+-   Allowed working **time** / **memory**: **100ms** / **16MB**..
