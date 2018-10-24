@@ -322,9 +322,8 @@ formats** of each command:
 -   **Inspect command** -- provides **detailed** **information** about a
     **Vehicle** or a **Part**, in one of the following formats:
 
-+-----------------------------------+-----------------------------------+
 | Vehicle                           | Part                              |
-+===================================+===================================+
+|-------------------------------------------------|-----------------------------------------------|
 | {vehicleType} -- {vehicleModel}   | {partType} Part -- {partModel}    |
 |                                   |                                   |
 | Total Weight: {totalWeight}       | +{additionalParamValue}           |
@@ -339,7 +338,6 @@ formats** of each command:
 |                                   |                                   |
 | Parts: {part1Model},              |                                   |
 | {part2Model}\...                  |                                   |
-+-----------------------------------+-----------------------------------+
 
 > Because of the fact, that the **Part** is not particular, the
 > **additionalParameter** should either be "**Attack**", "**Defense**",
