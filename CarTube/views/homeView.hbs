@@ -1,0 +1,30 @@
+<nav>
+    <a class="active" href="#/">Home</a>
+    {{#if loggedIn}}
+        <a href="#/allListings">All Listings</a>
+        <a href="#/myListings">My Listings</a>
+        <a href="#/createListing">Create Listing</a>
+        <div id="profile">
+            <a>Welcome {{username}}</a>
+            <a href="#/logout">logout</a>
+        </div>
+    {{/if}}
+</nav>
+
+{{#unless loggedIn}}
+    <div id="main">
+        <div id="welcome-container">
+            <h1>Welcome To Car Tube</h1>
+            <img src="style/images/finance-car.png" alt="carIntro">
+            <h2>Login or register to check out our listings or to make one</h2>
+            <div id="button-div">
+                <a href="#/login" class="button">Login</a>
+                <a href="#/register" class="button">Register</a>
+            </div>
+        </div>
+    </div>
+{{/unless}}
+
+<div class="footer">
+    <p>Created by MarikMayhem</p>
+</div>
