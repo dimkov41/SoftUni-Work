@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SoftUni Beers</title>
+    <link rel="stylesheet" href="../../scripts/style.css"/>
+    <link rel="stylesheet" href="../../scripts/form.css"/>
+</head>
+<body>
+<nav>
+    <div class="topNav">
+        <a href="../main/index.html" class="logo"><img src="../../images/logo.png"></a>
+        <a href="../main/index.html">Home</a>
+        <a href="../main/allBeers.html">See All Beers</a>
+        <a href="../main/order.html"  class="active">Order a Beer</a>
+
+        <a href="../main/login.html" class="right">Log In</a>
+        <a href="../main/register.html" class="right">Register</a>
+    </div>
+</nav>
+
+<main>
+    <center>
+        <h1>Order a Beer</h1>
+        <form>
+            <label>Brand</label>
+            <select>
+                <option value="Select" selected disabled>Select a brand</option>
+                <option value="Stella Artois">Stella Artois</option>
+                <option value="Carlsberg">Carlsberg</option>
+                <option value="Corona Extra">Corona Extra</option>
+                <option value="Heineken">Heineken</option>
+            </select>
+            <label>Quantity</label>
+            <input type="number" placeholder="Enter amount of beers (1-15)" min="1" max="15">
+            <label>Destination</label>
+            <select>
+                <option value="Select" selected disabled>Select a destination</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="Iran">Iran</option>
+            </select>
+            <label>Enter your birthdate</label>
+            <input type="date" placeholder="mm/dd/YYYY">
+            <input type="submit" value="Order">
+        </form>
+    </center>
+</main>
+
+<footer>
+    <hr/>
+    <p><em>&copy; 2017 &ndash; SoftUni Beers</em></p>
+</footer>
+</body>
+</html>
