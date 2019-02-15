@@ -1,0 +1,45 @@
+.header,
+.footer {
+    background-color: rebeccapurple;
+    color: white;
+    box-sizing: border-box;
+}
+
+.header {
+    padding: 2rem 2em 2rem 2em;
+}
+
+.meTube {
+    text-align: left;
+}
+
+.commandButtons {
+    float: right;
+}
+
+.commandButtons a {
+    text-decoration: none;
+    color: white;
+    padding: 2rem 1em 2rem 1em;
+}
+
+.commandButtons a:hover {
+    background-color: darkslateblue;
+    color: bisque;
+}
+
+.main {
+    margin-top: 1em;
+    padding: 1em 2em 1em 2em;
+    background-color: lightgray;
+}
+
+.footer {
+    padding: 1em;
+    text-align: center;
+}
+
+.meTube a{
+    text-decoration: none;
+    color: white;
+}
