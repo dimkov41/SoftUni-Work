@@ -1,3 +1,7 @@
+main {
+    text-align: center;
+}
+
 .header,
 .footer {
     background-color: rebeccapurple;
@@ -42,4 +46,18 @@
 .meTube a{
     text-decoration: none;
     color: white;
+}
+
+#button{
+    background-color: limegreen;
+    color: white;
+    border-radius: 1em;
+    padding: 1em 2em 1em 2em;
+    border: none;
+    cursor: pointer;
+}
+
+#button:hover{
+    color: black;
+    background-color: aliceblue;
 }
