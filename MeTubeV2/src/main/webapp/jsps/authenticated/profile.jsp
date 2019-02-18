@@ -8,14 +8,15 @@
     <title>MeTube</title>
     <style type="text/css">
         <%@include file="../../resources/css/style.css"%>
-        <%@include file="../../resources/css/profileStyle.css"%>
     </style>
 </head>
 <body>
 <jsp:include page="<%= ResourceConstants.HEADER_PATH %>"/>
 <main>
-    <h1>@<%=request.getSession().getAttribute(Constants.USERNAME_FIELD_NAME) %></h1>
-    <h1>(<%=request.getSession().getAttribute(Constants.EMAIL_FIELD_NAME) %>)</h1>
+    <span class="welcomeMessage">
+        <h1>@<%=request.getSession().getAttribute(Constants.USERNAME_FIELD_NAME) %></h1>
+        <h1>(<%=request.getSession().getAttribute(Constants.EMAIL_FIELD_NAME) %>)</h1>
+    </span>
     <hr/>
     <table class="table">
         <thead>

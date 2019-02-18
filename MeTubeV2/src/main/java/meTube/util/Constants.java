@@ -13,6 +13,7 @@ public abstract class Constants {
 
     public static final String TUBES_PROFILE_FIELD_NAME = "tubes";
     public static final String TUBES_DETAILS_FIELD_NAME = "tubeDetails";
+    public static final String TUBES_HOME_FIELD_NAME = "tubesHome";
 
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
@@ -23,4 +24,5 @@ public abstract class Constants {
     public static final String TUBE_DETAILS_URL = "/tube/details";
     public static final String TUBE_UPLOAD_URL = "/tube/upload";
     public static final String LOGOUT_URL = "/logout";
+
 }

@@ -12,30 +12,31 @@
     <title>MeTube</title>
     <style type="text/css">
         <%@include file="../../resources/css/style.css"%>
-        <%@include file="../../resources/css/tubeUploadStyle.css"%>
     </style>
 </head>
 <body>
 <jsp:include page="<%= ResourceConstants.HEADER_PATH %>"/>
 <main>
-    <h1>Upload</h1>
-    <hr/>
-    <form action="<%=Constants.TUBE_UPLOAD_URL %>" method="post">
-        <label for="title"><h3>Title</h3> </label>
-        <input type="text" id="title" name=<%= Constants.TUBE_TITLE_FIELD_NAME %> />
+    <div class="form">
+        <h1>Upload</h1>
+        <hr/>
+        <form action="<%=Constants.TUBE_UPLOAD_URL %>" method="post">
+            <label for="title"><h3>Title</h3></label>
+            <input type="text" id="title" name=<%= Constants.TUBE_TITLE_FIELD_NAME %> />
 
-        <label for="password"><h3>Author</h3> </label>
-        <input type="text" id="password" name=<%= Constants.TUBE_AUTHOR_FIELD_NAME %> />
+            <label for="password"><h3>Author</h3></label>
+            <input type="text" id="password" name=<%= Constants.TUBE_AUTHOR_FIELD_NAME %> />
 
-        <label for="youtubeLink"><h3>Youtube Link</h3> </label>
-        <input type="text" id="youtubeLink" name=<%= Constants.TUBE_YOUTUBE_LINK_FIELD_NAME %> />
+            <label for="youtubeLink"><h3>Youtube Link</h3></label>
+            <input type="text" id="youtubeLink" name=<%= Constants.TUBE_YOUTUBE_LINK_FIELD_NAME %> />
 
-        <label for="description"><h3>Description</h3> </label>
-        <input type="text" id="description" name=<%= Constants.TUBE_DESCRIPTION_FIELD_NAME %> />
-        <br/>
-        <br/>
-        <input type="submit" value="Upload" id="button">
-    </form>
+            <label for="description"><h3>Description</h3></label>
+            <input type="text" id="description" name=<%= Constants.TUBE_DESCRIPTION_FIELD_NAME %> />
+            <br/>
+            <br/>
+            <input type="submit" value="Upload" id="button">
+        </form>
+    </div>
 </main>
 <jsp:include page="<%= ResourceConstants.FOOTER_PATH %>"/>
 </body>

@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {
         Constants.HOME_LOGGED_IN_URL,
         Constants.PROFILE_URL,
-        Constants.TUBE_DETAILS_URL,
+        Constants.TUBE_DETAILS_URL + "/*",
         Constants.TUBE_UPLOAD_URL
 })
 public class GuestUserFilter implements Filter {

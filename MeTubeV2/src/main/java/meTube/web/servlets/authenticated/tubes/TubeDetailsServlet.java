@@ -41,6 +41,7 @@ public class TubeDetailsServlet extends HttpServlet {
         tubeDetailsServiceModel
                 .ifPresentOrElse((t) -> {
                             TubeDetailsViewModel tubeDetailsViewModel = this.modelMapper.map(t, TubeDetailsViewModel.class);
+                            tubeDetailsViewModel.setYoutubeLink(tubeDetailsViewModel.getYoutubeLink().replace("watch?v=","embed/"));
 
                             req.getSession().setAttribute(Constants.TUBES_DETAILS_FIELD_NAME, tubeDetailsViewModel);
                             ServletUtils.sendForward(getServletContext(), req, resp, TUBE_DETAILS_JSP_PATH);
