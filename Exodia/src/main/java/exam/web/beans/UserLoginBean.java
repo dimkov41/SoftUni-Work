@@ -1,5 +1,6 @@
 package exam.web.beans;
 
+import exam.utils.Constants;
 import org.modelmapper.ModelMapper;
 import exam.domain.models.binding.UserLoginBindingModel;
 import exam.domain.models.service.UserLoginServiceModel;
@@ -43,12 +44,12 @@ UserLoginBean {
                 this.userService.findByUsername(this.userLoginBindingModel.getUsername());
 
         if(!user.isPresent()){
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"User does not exists");
+            BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.USER_NOT_EXIST_MESSAGE);
             return;
         }
 
         if (!this.userLoginBindingModel.getPassword().equals(user.get().getPassword())){
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Incorrect Password");
+            BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.INCORRECT_PASSWORD_MESSAGE);
             return;
         }
 
@@ -56,7 +57,7 @@ UserLoginBean {
         sessionMap.put("userId",user.get().getId());
         sessionMap.put("username",user.get().getUsername());
 
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
     }
 
     public UserLoginBindingModel getUserLoginBindingModel() {

@@ -1,10 +1,10 @@
 package exam.service;
 
-import org.modelmapper.ModelMapper;
 import exam.domain.entity.User;
 import exam.domain.models.service.UserLoginServiceModel;
 import exam.domain.models.service.UserRegisterServiceModel;
 import exam.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 
 import javax.inject.Inject;
 import java.util.Optional;
@@ -22,20 +22,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserRegisterServiceModel> save(UserRegisterServiceModel userRegisterServiceModel) {
-        if(this.userRepository.save(this.modelMapper.map(userRegisterServiceModel, User.class)).isPresent()){
-            return Optional.of(userRegisterServiceModel);
-        }
-        return Optional.empty();
+        return Optional.ofNullable(
+                this.modelMapper
+                        .map(this.userRepository
+                                .save(this.modelMapper.map(userRegisterServiceModel, User.class)), UserRegisterServiceModel.class));
     }
 
     @Override
     public Optional<UserLoginServiceModel> findByUsername(String username) {
-        Optional<User> user = this.userRepository.findByUsername(username);
-
-        if(user.isPresent()){
-            return Optional.of(this.modelMapper.map(user.get(),UserLoginServiceModel.class));
-        }
-
-        return Optional.empty();
+        return Optional.ofNullable(this.modelMapper.map(this.userRepository.findByUsername(username), UserLoginServiceModel.class));
     }
 }

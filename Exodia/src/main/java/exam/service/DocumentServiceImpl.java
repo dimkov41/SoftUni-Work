@@ -23,25 +23,21 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public Optional<DocumentServiceModel> save(DocumentServiceModel documentServiceModel) {
-        Optional<Document> document = this.documentRepository.save(this.modelMapper.map(documentServiceModel,
+        Document document = this.documentRepository.save(this.modelMapper.map(documentServiceModel,
                 Document.class));
 
-        if(document.isPresent()){
-            documentServiceModel.setId(document.get().getId());
+        if(document != null){
+            documentServiceModel.setId(document.getId());
             return Optional.of(documentServiceModel);
         }
         return Optional.empty();
+
+
     }
 
     @Override
     public Optional<DocumentServiceModel> findById(String id) {
-        Optional<Document> document = this.documentRepository.findById(id);
-
-        if(document.isPresent()){
-            return Optional.of(this.modelMapper.map(document.get(),DocumentServiceModel.class));
-        }
-
-        return Optional.empty();
+        return Optional.ofNullable(this.modelMapper.map(this.documentRepository.findById(id),DocumentServiceModel.class));
     }
 
     @Override

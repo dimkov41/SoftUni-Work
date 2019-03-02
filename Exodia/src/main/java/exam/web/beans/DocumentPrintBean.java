@@ -4,6 +4,7 @@ import exam.domain.models.service.DocumentServiceModel;
 import exam.repository.DocumentRepository;
 import exam.service.DocumentService;
 import exam.utils.BeanUtils;
+import exam.utils.Constants;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -29,13 +30,13 @@ public class DocumentPrintBean {
 
     public void delete() throws IOException {
         String id = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-                .getParameter("id");
+                .getParameter(Constants.ID_PARAMETHER_KEY);
 
         if(this.documentService.deleteById(id)){
-            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
             return;
         }
 
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Error! Please try again.");
+        BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.TRY_AGAIN_MESSAGE);
     }
 }

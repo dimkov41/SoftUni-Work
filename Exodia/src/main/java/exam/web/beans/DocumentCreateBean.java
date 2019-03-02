@@ -4,6 +4,7 @@ import exam.domain.models.binding.DocumentCreateBindingModel;
 import exam.domain.models.service.DocumentServiceModel;
 import exam.service.DocumentService;
 import exam.utils.BeanUtils;
+import exam.utils.Constants;
 import org.modelmapper.ModelMapper;
 
 import javax.annotation.PostConstruct;
@@ -48,7 +49,7 @@ public class DocumentCreateBean {
             return;
         }
 
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Error. Please try again");
+        BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.TRY_AGAIN_MESSAGE);
     }
 
     public DocumentCreateBindingModel getDocumentCreateBindingModel() {

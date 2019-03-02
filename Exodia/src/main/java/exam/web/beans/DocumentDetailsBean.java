@@ -4,6 +4,7 @@ import exam.domain.models.service.DocumentServiceModel;
 import exam.domain.models.view.DocumentDetailsViewModel;
 import exam.service.DocumentService;
 import exam.utils.BeanUtils;
+import exam.utils.Constants;
 import org.modelmapper.ModelMapper;
 
 import javax.enterprise.context.RequestScoped;
@@ -32,7 +33,7 @@ public class DocumentDetailsBean {
     public DocumentDetailsViewModel getDetails() throws IOException {
         String id = FacesContext.getCurrentInstance()
                 .getExternalContext()
-                .getRequestParameterMap().get("id");
+                .getRequestParameterMap().get(Constants.ID_PARAMETHER_KEY);
 
         Optional<DocumentServiceModel> documentServiceModel = this.documentService.findById(id);
 
@@ -43,7 +44,7 @@ public class DocumentDetailsBean {
         }
 
         //if document doesn't exist
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
         return new DocumentDetailsViewModel();
     }
 }

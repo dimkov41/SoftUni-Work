@@ -1,5 +1,6 @@
 package exam.web.beans;
 
+import exam.utils.Constants;
 import org.modelmapper.ModelMapper;
 import exam.domain.models.binding.UserRegisterBindingModel;
 import exam.domain.models.service.UserRegisterServiceModel;
@@ -47,18 +48,18 @@ public class UserRegisterBean {
         //if passwords does not match
         if(!this.userRegisterBindingModel.getPassword()
                 .equals(this.userRegisterBindingModel.getConfirmPassword())) {
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Passwords does not match");
+            BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.VARIUOS_PASSWORDS_MESSAGE);
             return;
         }
 
         if (this.userService.save(
                 this.modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class)
         ).isPresent()) {
-            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(), "/login");
+            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(), Constants.LOGIN_PATH);
             return;
         }
 
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Username already exists.");
+        BeanUtils.addMessage(FacesContext.getCurrentInstance(),Constants.USERNAME_ALREADY_EXIST_MESSAGE);
     }
 
 }

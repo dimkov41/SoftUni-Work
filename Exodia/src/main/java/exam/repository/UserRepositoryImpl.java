@@ -7,40 +7,28 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryImpl implements UserRepository {
-    private final EntityManager entityManager;
+public class UserRepositoryImpl extends BaseRepository implements UserRepository {
+    private EntityManager entityManager;
 
     @Inject
     public UserRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     @Override
-    public Optional<User> save(User entity) {
-        this.entityManager.getTransaction().begin();
-        this.entityManager.persist(entity);
-        try {
-            this.entityManager.getTransaction().commit();
-            return Optional.of(entity);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public User save(User entity) {
+        return super.executeTransaction((e) ->{
+            e.persist(entity);
+            return entity;
+        });
     }
 
     @Override
-    public List<User> getAll() {
-        return null;
-    }
-
-    @Override
-    public Optional<User> findByUsername(String username) {
-        try {
-            return Optional.of((User) this.entityManager
-                    .createQuery("SELECT u FROM users AS u WHERE u.username = :username")
-                    .setParameter("username", username)
-                    .getSingleResult());
-        } catch (Exception e){
-            return Optional.empty();
-        }
+    public User findByUsername(String username) {
+        return super.executeTransaction((e) -> (User) e
+                .createQuery("SELECT u FROM users AS u WHERE u.username = :username")
+                .setParameter("username", username)
+                .getSingleResult()
+        );
     }
 }

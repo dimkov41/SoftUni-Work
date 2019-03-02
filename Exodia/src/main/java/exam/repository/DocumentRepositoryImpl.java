@@ -7,58 +7,40 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public class DocumentRepositoryImpl implements DocumentRepository {
-    private final EntityManager entityManager;
-
+public class DocumentRepositoryImpl extends BaseRepository implements DocumentRepository {
     @Inject
     public DocumentRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     @Override
-    public Optional<Document> save(Document entity) {
-        this.entityManager.getTransaction().begin();
-        this.entityManager.persist(entity);
-        try {
-            this.entityManager.getTransaction().commit();
-            return Optional.of(entity);
-        } catch (Exception e) {
-            this.entityManager.getTransaction().rollback();
-            return Optional.empty();
-        }
+    public Document save(Document entity) {
+        return super.executeTransaction((e) -> {
+            e.persist(entity);
+            return entity;
+        });
+
+
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Document> getAll() {
-        return this.entityManager.createQuery("SELECT d FROM documents AS d")
-                .getResultList();
+        return super.executeTransaction((e) -> (List<Document>) e.createQuery("SELECT d FROM documents AS d")
+                .getResultList());
     }
 
     @Override
-    public Optional<Document> findById(String id) {
-        try {
-            return Optional.ofNullable((Document)
-                    this.entityManager.createQuery("SELECT d FROM documents AS d WHERE d.id = :id")
-                            .setParameter("id", id)
-                            .getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public Document findById(String id) {
+        return super.executeTransaction((e) -> (Document) e.createQuery("SELECT d FROM documents AS d WHERE d.id = :id")
+                .setParameter("id", id)
+                .getSingleResult());
     }
 
     @Override
     public boolean deleteById(String id) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.createQuery("DELETE FROM documents AS j WHERE j.id = :id")
-                    .setParameter("id",id)
-                    .executeUpdate();
-            this.entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            this.entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
-        }
+        return super.executeTransaction((e) -> e.createQuery("DELETE FROM documents AS j WHERE j.id = :id")
+                .setParameter("id", id)
+                .executeUpdate()) != 0;
     }
 }

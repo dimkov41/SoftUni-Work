@@ -2,10 +2,13 @@ package exam.repository;
 
 import exam.domain.entity.Document;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface DocumentRepository extends GenericRepository<Document,String> {
-    Optional<Document> findById(String id);
+    Document findById(String id);
 
     boolean deleteById(String id);
+
+    List<Document> getAll();
 }
