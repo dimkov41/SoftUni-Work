@@ -1,11 +1,12 @@
 package sboj.web.beans;
 
+import com.sun.xml.bind.v2.runtime.reflect.opt.Const;
 import org.modelmapper.ModelMapper;
 import sboj.domain.models.binding.JobCreateBindingModel;
 import sboj.domain.models.enums.Sector;
 import sboj.domain.models.service.JobServiceModel;
 import sboj.service.JobService;
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -16,7 +17,7 @@ import java.io.IOException;
 
 @Named
 @RequestScoped
-public class JobCreateBean {
+public class JobCreateBean extends BaseBean {
     private JobCreateBindingModel jobCreateBindingModel;
 
     private ModelMapper modelMapper;
@@ -40,18 +41,18 @@ public class JobCreateBean {
         String sector = this.jobCreateBindingModel.getSector();
 
         if(!sectorIsValid(sector)){
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Sector is not valid");
+            super.addMessage(FacesContext.getCurrentInstance(),Constants.INVALID_SECTOR_MESSAGE);
             return;
         }
 
         if(this.jobService.save(this.modelMapper.map(this.jobCreateBindingModel, JobServiceModel.class)).isPresent()){
-            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+            super.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
             return;
         }
 
         //if save fail, reload add page
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Try again");
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/jobs/add");
+        super.addMessage(FacesContext.getCurrentInstance(),Constants.TRY_AGAIN_MESSAGE);
+        super.sendRedirect(FacesContext.getCurrentInstance(),Constants.ADD_JOB_PATH);
     }
 
     private boolean sectorIsValid(String sector){

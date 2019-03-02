@@ -23,11 +23,9 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Optional<JobServiceModel> save(JobServiceModel jobServiceModel) {
-        if(this.jobRepository.save(this.modelMapper.map(jobServiceModel, Job.class)).isPresent()){
-            return Optional.of(jobServiceModel);
-        }
-
-        return Optional.empty();
+        return Optional.ofNullable(this.modelMapper.map(
+                this.jobRepository
+                        .save(this.modelMapper.map(jobServiceModel, Job.class)), JobServiceModel.class));
     }
 
     @Override
@@ -39,13 +37,9 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public Optional<JobServiceModel> findById(String id) {
-        Optional<Job> jobs = this.jobRepository.findById(id);
+        return Optional.ofNullable(
+                this.modelMapper.map(this.jobRepository.findById(id), JobServiceModel.class));
 
-        if(jobs.isPresent()){
-            return Optional.of(this.modelMapper.map(jobs.get(),JobServiceModel.class));
-        }
-
-        return Optional.empty();
     }
 
     @Override

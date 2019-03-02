@@ -4,20 +4,18 @@ import org.modelmapper.ModelMapper;
 import sboj.domain.models.service.JobServiceModel;
 import sboj.domain.models.view.JobDetailsViewModel;
 import sboj.service.JobService;
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.util.Optional;
 
 @Named
 @RequestScoped
-public class JobDetailsBean {
+public class JobDetailsBean extends BaseBean{
     private ModelMapper modelMapper;
     private JobService jobService;
 
@@ -37,7 +35,7 @@ public class JobDetailsBean {
             return this.modelMapper.map(jobServiceModel.get(),JobDetailsViewModel.class);
         }
 
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+        super.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
         return new JobDetailsViewModel();
     }
 }

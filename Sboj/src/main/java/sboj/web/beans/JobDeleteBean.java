@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import sboj.domain.models.service.JobServiceModel;
 import sboj.domain.models.view.JobDeleteViewModel;
 import sboj.service.JobService;
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -13,10 +13,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Named
 @RequestScoped
-public class JobDeleteBean {
+public class JobDeleteBean extends BaseBean {
     private JobService jobService;
     private ModelMapper modelMapper;
 
@@ -36,19 +37,19 @@ public class JobDeleteBean {
             return this.modelMapper.map(jobServiceModel.get(), JobDeleteViewModel.class);
         }
 
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+        super.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
         return new JobDeleteViewModel();
     }
 
     public void delete() throws IOException {
         String id = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest())
-                .getParameter("id");
+                .getParameter(Constants.ID_PARAMETHER_KEY);
 
         if(this.jobService.deleteById(id)){
-            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+            super.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
             return;
         }
 
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Error! Please try again.");
+        super.addMessage(FacesContext.getCurrentInstance(),Constants.TRY_AGAIN_MESSAGE);
     }
 }

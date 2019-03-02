@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import sboj.domain.models.binding.UserRegisterBindingModel;
 import sboj.domain.models.service.UserRegisterServiceModel;
 import sboj.service.UserService;
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @Named
 @RequestScoped
-public class UserRegisterBean {
+public class UserRegisterBean extends BaseBean {
     private UserRegisterBindingModel userRegisterBindingModel;
 
     private ModelMapper modelMapper;
@@ -47,18 +47,18 @@ public class UserRegisterBean {
         //if passwords does not match
         if(!this.userRegisterBindingModel.getPassword()
                 .equals(this.userRegisterBindingModel.getConfirmPassword())) {
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Passwords does not match");
+            super.addMessage(FacesContext.getCurrentInstance(),Constants.VARIUOS_PASSWORDS_MESSAGE);
             return;
         }
 
         if (this.userService.save(
                 this.modelMapper.map(userRegisterBindingModel, UserRegisterServiceModel.class)
         ).isPresent()) {
-            BeanUtils.sendRedirect(FacesContext.getCurrentInstance(), "/login");
+            super.sendRedirect(FacesContext.getCurrentInstance(), Constants.LOGIN_PATH);
             return;
         }
 
-        BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Username already exists.");
+        super.addMessage(FacesContext.getCurrentInstance(),Constants.USERNAME_ALREADY_EXIST_MESSAGE);
     }
 
 }

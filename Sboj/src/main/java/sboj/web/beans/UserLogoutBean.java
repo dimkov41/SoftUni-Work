@@ -1,6 +1,6 @@
 package sboj.web.beans;
 
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -9,13 +9,13 @@ import java.io.IOException;
 
 @Named
 @RequestScoped
-public class UserLogoutBean {
+public class UserLogoutBean extends BaseBean{
     public void logout() throws IOException {
         FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
                 .invalidateSession();
 
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/");
+        super.sendRedirect(FacesContext.getCurrentInstance(),Constants.INDEX_PATH);
     }
 }

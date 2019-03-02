@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import sboj.domain.models.binding.UserLoginBindingModel;
 import sboj.domain.models.service.UserLoginServiceModel;
 import sboj.service.UserService;
-import sboj.utils.BeanUtils;
+import sboj.utils.Constants;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -17,8 +17,7 @@ import java.util.Optional;
 
 @Named
 @RequestScoped
-public class
-UserLoginBean {
+public class UserLoginBean extends BaseBean {
     private UserLoginBindingModel userLoginBindingModel;
 
     private ModelMapper modelMapper;
@@ -43,12 +42,12 @@ UserLoginBean {
                 this.userService.findByUsername(this.userLoginBindingModel.getUsername());
 
         if(!user.isPresent()){
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"User does not exists");
+            super.addMessage(FacesContext.getCurrentInstance(),Constants.USER_NOT_EXIST_MESSAGE);
             return;
         }
 
         if (!this.userLoginBindingModel.getPassword().equals(user.get().getPassword())){
-            BeanUtils.addMessage(FacesContext.getCurrentInstance(),"Incorrect Password");
+            super.addMessage(FacesContext.getCurrentInstance(),Constants.INCORRECT_PASSWORD_MESSAGE);
             return;
         }
 
@@ -56,7 +55,7 @@ UserLoginBean {
         sessionMap.put("userId",user.get().getId());
         sessionMap.put("username",user.get().getUsername());
 
-        BeanUtils.sendRedirect(FacesContext.getCurrentInstance(),"/home");
+        super.sendRedirect(FacesContext.getCurrentInstance(),Constants.HOME_PATH);
     }
 
     public UserLoginBindingModel getUserLoginBindingModel() {

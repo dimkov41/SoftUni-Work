@@ -27,7 +27,7 @@
                     <h:outputLink styleClass="btn btn-danger" value="/jobs/delete/${job.id}">Delete</h:outputLink>
                 </h:panelGroup>
                 <h:outputText value="&lt;/div&gt;" escape="false"
-                              rendered="#{status.index % 3 == 0}"/>
+                              rendered="#{status.index % 3 == 2}"/>
             </c:forEach>
         </div>
         <hr class="my-3"/>

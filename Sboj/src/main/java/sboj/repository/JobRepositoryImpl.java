@@ -6,58 +6,41 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
-public class JobRepositoryImpl implements JobRepository {
-    private final EntityManager entityManager;
-
+public class JobRepositoryImpl extends BaseRepository implements JobRepository {
     @Inject
     public JobRepositoryImpl(EntityManager entityManager) {
-        this.entityManager = entityManager;
+        super(entityManager);
     }
 
     @Override
-    public Optional<Job> save(Job entity) {
-        this.entityManager.getTransaction().begin();
-        this.entityManager.persist(entity);
-        try {
-            this.entityManager.getTransaction().commit();
-            return Optional.of(entity);
-        } catch (Exception e) {
-            this.entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return Optional.empty();
-        }
+    public Job save(Job entity) {
+        return super.executeTransaction((e) -> {
+            e.persist(entity);
+            return entity;
+        });
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Job> getAll() {
-        return this.entityManager.createQuery("SELECT j FROM jobs AS j")
-                .getResultList();
+        return super.executeTransaction((e) -> (List<Job>) e.createQuery("SELECT j FROM jobs AS j")
+                .getResultList());
     }
 
     @Override
-    public Optional<Job> findById(String id) {
-        try {
-            return Optional.of((Job) this.entityManager.createQuery("SELECT j FROM jobs AS j WHERE j.id = :id")
-                    .setParameter("id", id)
-                    .getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public Job findById(String id) {
+        return super.executeTransaction(
+                        (e) -> (Job) e.createQuery("SELECT j FROM jobs AS j WHERE j.id = :id")
+                                .setParameter("id", id)
+                                .getSingleResult());
     }
 
     public boolean deleteById(String id) {
-        try {
-            this.entityManager.getTransaction().begin();
-            this.entityManager.createQuery("DELETE FROM jobs AS j WHERE j.id = :id")
-                    .setParameter("id",id)
-                    .executeUpdate();
-            this.entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            this.entityManager.getTransaction().rollback();
-            e.printStackTrace();
-            return false;
-        }
+        return super.executeTransaction((e) -> e.createQuery("DELETE FROM jobs AS j WHERE j.id = :id")
+                .setParameter("id", id)
+                .executeUpdate()) != 0;
     }
 }
