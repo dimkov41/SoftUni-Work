@@ -1,5 +1,3 @@
-package com.example
-
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -27,11 +25,14 @@ class SerbianUnleashed {
                 int ticketsCount = matcher.group(4) as int
 
                 if (!venues.containsKey(venue)) {
-                    LinkedHashMap<String, Integer> map = [:]
-                    venues.put(venue, map)
+                    venues.put(venue, [:]);
                 }
 
-                venues.get(venue).putIfAbsent(singer, ticketsCount * ticketsPrice)
+                if (!venues.get(venue).containsKey(singer)) {
+                    venues.get(venue).put(singer,0)
+                }
+
+                venues.get(venue)[singer] = (ticketsCount * ticketsPrice) + (venues.get(venue).get(singer))
             }
         }
 
