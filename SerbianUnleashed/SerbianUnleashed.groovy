@@ -29,7 +29,7 @@ class SerbianUnleashed {
                 }
 
                 if (!venues.get(venue).containsKey(singer)) {
-                    venues.get(venue).put(singer,0)
+                    venues.get(venue)[singer] = 0
                 }
 
                 venues.get(venue)[singer] = (ticketsCount * ticketsPrice) + (venues.get(venue).get(singer))
